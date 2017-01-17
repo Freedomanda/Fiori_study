@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+		<script src="./resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+
+		<script>
+			sap.ui.getCore().attachInit( function(){
+				//Create a mobile app and display page1 initially
+				var app = new sap.m.App("myApp",{initialPage: "page1",width:"60%"});
+				//Create first page page1
+				var page1 = new sap.m.Page("page1", {
+						title: "Helloworld/FirstPage",
+						titleLevel:"H6",
+						showNavButton: true,
+						navButtonText: "ToLastPage",
+						navButtonType: "Emphasized",
+						navButtonPress: function(){
+							app.to("page3");
+						},
+						content: new sap.m.Button("toPage2",{
+							text:"Goto page2",
+							type:"Transparent",
+							press: function(){
+							//Naviagte to page2
+							app.to("page2");
+							}
+						})
+				});
+				
+				var page2 = new sap.m.Page("page2",{
+					title: "Welcome to page2",
+					titleLevel:"H3",
+					showNavButton: true,
+					navButtonPress: function(){
+						app.back();
+					}
+				});
+				var page3 = new sap.m.Page("page3",{
+					title: "Welcome to page3",
+					titleLevel:"H1",
+					showNavButton: true,
+					navButtonPress: function(){
+						app.back();
+					}
+				});				
+				page1.setShowFooter(true);
+				app.addPage(page1);
+				app.addPage(page2).addPage(page3);
+				app.placeAt("content");
+			});
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+</html>
